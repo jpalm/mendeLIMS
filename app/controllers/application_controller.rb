@@ -104,6 +104,15 @@ class ApplicationController < ActionController::Base
     model.constantize.find(id).barcode_key
   end
   
+  def get_containers
+    if !params[:storage_location_id].blank?
+      @storage_location = StorageLocation.find(params[:storage_location_id], :include => :storage_containers)
+      render :partial => "/shared/storage_container"
+    else
+      render :nothing => true
+    end
+  end
+  
   def sql_condition(input_val)
     if input_val.is_a?(Array)
       conditional = ' IN (?)'

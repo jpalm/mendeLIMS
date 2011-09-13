@@ -1,0 +1,16 @@
+<fieldset class="form">
+<legend>Storage Location</legend>
+  <div id="freezer_div" style="display:inline-block">
+  <span class="fldlabel">Room/Freezer</span>&nbsp;&nbsp;
+  <%=collection_select(:sample, :storage_location_id, @storage_locations, 
+                        :id, :location_string, {:include_blank => 'Select location'}, {:label => 'Room/Freezer'} ) %>
+  <%=observe_field(:sample_storage_location_id, :url => {:action => :get_containers },
+                   :update => :container_div, 
+                   :with => "'storage_location_id='+ escape($('sample_storage_location_id').value) + '&obj=' + 'sample'") %>
+  </div>
+ 
+  <div id="container_div" style="display:inline-block">
+  	<% if @storage_location %><%= render :partial => '/shared/storage_container' %><% end %>
+  </div>
+  <div>&nbsp;</div>
+</fieldset>

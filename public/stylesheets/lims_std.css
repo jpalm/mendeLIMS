@@ -612,6 +612,17 @@ fieldset.form legend {
     color: #999000;
 }
 
+.fldlabel {
+    font-size: .85em;
+    font-weight: bolder;
+    text-align: right;
+    vertical-align:top;
+}
+
+.fldvalue {
+    font-size: .85em;
+}
+
 .hardbreak {
     word-break: break-all;
     white-space: nowrap; /* css-3 */

@@ -15,6 +15,7 @@ class SamplesController < ApplicationController
   def edit
     @sample_is_new = (params[:new_sample] ||= false)
     @sample = Sample.find(params[:id], :include => [:sample_characteristic, :patient])
+    @storage_location = StorageLocation.find(@sample.storage_location_id) if !@sample.storage_location_id.nil?
   end
   
   def edit_params 

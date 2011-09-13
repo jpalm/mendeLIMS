@@ -37,6 +37,7 @@ class ProcessedSample < ActiveRecord::Base
   has_many :molecular_assays
   has_many :lib_samples
   has_many :seq_libs, :through => :lib_samples
+  has_many :storage_positions, :as =>:sampleinv
   
   validates_date :processing_date
   

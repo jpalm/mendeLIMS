@@ -1,0 +1,13 @@
+  <span class="fldlabel">Rack/Box/Bin</span>&nbsp;&nbsp;
+  <% if @storage_location.storage_containers.present? %>
+    <%=collection_select(:sample, :storage_shelf, @storage_location.storage_containers, :container_string, :container_string,
+                        {:include_blank => 'Select container'})%>
+	<span class="fldlabel">Position</span>&nbsp;&nbsp;
+    <%=h text_field(:sample, :storage_boxbin, :size => 6) %>
+  <% else %>
+    <span class="fldvalue">None defined</span>
+	<%= hidden_field(:sample, :storage_shelf, :value => '')%>
+	<%= hidden_field(:sample, :storage_boxbin, :value => '')%>
+  <% end %>
+  
+  

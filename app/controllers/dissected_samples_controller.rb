@@ -33,6 +33,7 @@ class DissectedSamplesController < ApplicationController
   def edit
     @sample = Sample.find(params[:id])
     @source_sample = Sample.find(@sample.source_sample_id, :include => :sample_characteristic)
+    @storage_location = StorageLocation.find(@sample.storage_location_id) if !@sample.storage_location_id.nil?
   end
   
   def update
@@ -86,4 +87,5 @@ protected
     @amount_uom         = category_filter(@category_dropdowns, 'unit of measure') 
     @storage_locations  = StorageLocation.list_all_by_room
   end
+  
 end

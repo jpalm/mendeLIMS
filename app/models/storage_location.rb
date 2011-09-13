@@ -17,6 +17,7 @@ class StorageLocation < ActiveRecord::Base
   #has_many :processed_samples
   
   #validates_uniqueness_of :location_string
+  has_many :storage_containers
   
   def location_string
     name_array      = owner_name.split(' ')
