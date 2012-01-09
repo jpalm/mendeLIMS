@@ -1,17 +1,17 @@
 # deploy.rb
-role :app, "mendelims.stanford.edu"
-role :web, "mendelims.stanford.edu"
-#role :db,  "hjdb.stanford.edu", :primary => true
+role :app, "appserver.yourco.com"
+role :web, "webserver.yourco.com"
+role :db,  "dbserver.yourco.com", :primary => true
 
-set :user, "sgrimes"
-set :ssh_options, { :forward_agent => true }
+set :user, "username"  #login for your web/application server
+#set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true
 
-set :deploy_to, "/opt/rails/mendelims"
+set :deploy_to, "/path/to/mendeLIMS_app"
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git://github.com/sgtc-stanford/mendeLIMS.git "
+set :repository, "git@github.com:sgtc-stanford/mendeLIMS.git"
 set :branch, "master"
 set :git_shallow_clone, 1
 #set :deploy_via, :remote_cache
