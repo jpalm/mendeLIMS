@@ -9,6 +9,7 @@
 #  from_pools          :string(100)
 #  from_plates         :string(100)
 #  total_oligos        :integer(4)      default(0), not null
+#  cherrypick_oligos   :integer(4)      default(0), not null
 #  enzyme_code         :string(50)
 #  source_conc_um      :decimal(8, 3)
 #  pool_volume         :decimal(8, 3)

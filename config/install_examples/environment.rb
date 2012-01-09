@@ -15,18 +15,12 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "sqlite3-ruby", :lib => "sqlite3"
-  # config.gem "aws-s3", :lib => "aws/s3"
-  # config.gem "stffn-declarative_authorization", :lib => "declarative_authorization"
-  # config.gem "ar-extensions", :version => '0.8.0'
-  # config.gem "ezcrypto",      :version => '0.7.2'
-    config.gem "ezcrypto"
-    config.gem "ar-extensions"
-    config.gem "cancan",        :version => '~> 1.6.4'
   # config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems/github.com', :version => '~> 2.3.6'
-    config.gem 'calendar_date_select'
+    config.gem "ar-extensions",        :version => '~> 0.9.3'
+	config.gem 'calendar_date_select', :version => '~> 1.16.2'
+	config.gem "cancan",               :version => '~> 1.6.4'
+    config.gem "ezcrypto",             :version => '~> 0.7.2'
+	config.gem "fastercsv",            :version => '~> 1.5.3'   
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -42,14 +36,14 @@ Rails::Initializer.run do |config|
   
   # Configure action mailer
   config.action_mailer.smtp_settings = {
-             :address => 'smtp.stanford.edu',
+             :address => 'smtpserver.yourco.com',
              :port    => 25,
-             :domain  => 'stanford.edu',
+             :domain  => 'yourco.com',
              :tls     => true,
              :enable_starttls_auto => true,
 #             :authentication => :login,
-#             :user_name => 'sgrimes',
-#             :password  => '[mypswd]'
+#             :user_name => 'username',
+#             :password  => '[userpswd]'
              }
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
