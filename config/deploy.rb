@@ -4,7 +4,7 @@ role :web, "mendelims.stanford.edu"
 #role :db,  "hjdb.stanford.edu", :primary => true
 
 set :user, "sgrimes"
-set :ssh_options, { :forward_agent => true }
+#set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true
 
 set :deploy_to, "/opt/rails/mendelims"
