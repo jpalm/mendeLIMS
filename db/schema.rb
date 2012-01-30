@@ -160,6 +160,16 @@ ActiveRecord::Schema.define(:version => 0) do
   add_index "flow_lanes", ["flow_cell_id"], :name => "fl_flow_cell_fk"
   add_index "flow_lanes", ["seq_lib_id"], :name => "fl_seq_lib_fk"
 
+  create_table "freezer_locations", :force => true do |t|
+    t.string    "room_nr",     :limit => 25, :default => "", :null => false
+    t.string    "freezer_nr",  :limit => 25
+    t.string    "owner_name",  :limit => 25
+    t.string    "owner_email", :limit => 50
+    t.string    "comments"
+    t.datetime  "created_at"
+    t.timestamp "updated_at",                                :null => false
+  end
+
   create_table "histologies", :force => true do |t|
     t.integer   "sample_id"
     t.string    "he_barcode_key",            :limit => 20,                               :default => "", :null => false
@@ -309,6 +319,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string    "from_pools",          :limit => 100
     t.string    "from_plates",         :limit => 100
     t.integer   "total_oligos",                                                     :default => 0,  :null => false
+    t.integer   "cherrypick_oligos",                                                :default => 0,  :null => false
     t.string    "enzyme_code",         :limit => 50
     t.decimal   "source_conc_um",                     :precision => 8, :scale => 3
     t.decimal   "pool_volume",                        :precision => 8, :scale => 3
@@ -428,6 +439,23 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sample_storage_containers", :force => true do |t|
+    t.integer   "stored_sample_id"
+    t.string    "stored_sample_type",     :limit => 50
+    t.string    "sample_name_or_barcode", :limit => 25,  :default => "", :null => false
+    t.string    "container_type",         :limit => 10
+    t.string    "container_name",         :limit => 25,  :default => "", :null => false
+    t.string    "position_in_container",  :limit => 15
+    t.integer   "freezer_location_id"
+    t.integer   "storage_container_id"
+    t.string    "row_nr",                 :limit => 2
+    t.string    "position_nr",            :limit => 3,   :default => ""
+    t.string    "notes",                  :limit => 100
+    t.timestamp "updated_by"
+  end
+
+  add_index "sample_storage_containers", ["stored_sample_id"], :name => "cn_sample_idx"
 
   create_table "samples", :force => true do |t|
     t.integer   "patient_id"

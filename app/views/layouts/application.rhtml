@@ -65,10 +65,10 @@
           </tr>
         </table> 
       </td>
-      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span></div></td>
+      <td valign="top" width="180" class="rgt-header-bg-graphic"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span></div></td>
     </tr>
     <tr>
-      <td><div class="tagline">&nbsp;</div></td>      
+      <td><div class="tagline"><%= APP_TAGLINE if APP_TAGLINE %></div></td>      
       <td valign="bottom">
       	<% if (logged_in? && controller.action_name != "logout") %>
         <div class="logout-link">
@@ -164,7 +164,8 @@
 	<li><a href="#">Admin</a>
       <ul> 
         <li><%= link_to 'Users',  users_path %></li>
-        <li><%= link_to 'Researchers', researchers_path, :class => 'last-submenu-item' %></li>             
+        <li><%= link_to 'Researchers', researchers_path %></li> 
+        <li><%= link_to 'Run Dir Management', del_run_dir_path, :class => 'last-submenu-item' %></li>            
       </ul>
     </li>
 	<% end %> <!-- /admin -->
@@ -207,7 +208,7 @@
         
     <li> <a href="#">System Tables</a>  
       <ul>
-      	<li><%= link_to 'Freezer Locations', storage_locations_path %></li>
+      	<li><%= link_to 'Freezer Locations', freezer_locations_path %></li>
         <li><%= link_to 'Protocols', protocol_type_path %></li>
 		
 		<% if user_has_access?(user_roles, ["researcher", "lab_admin", "alignment"])%>
