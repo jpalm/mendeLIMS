@@ -17,6 +17,9 @@ class AttachedFilesController < ApplicationController
     elsif params[:histology] && !param_blank?(params[:histology][:he_barcode_key])
       @obj = source_rec('histology', params[:histology][:he_barcode_key])
     
+    elsif params[:processed_sample] && !param_blank?(params[:processed_sample][:barcode_key])
+      @obj = source_rec('processed_sample', params[:processed_sample][:barcode_key])
+    
     elsif params[:seq_lib] && !param_blank?(params[:seq_lib][:barcode_key])
       @obj = source_rec('seq_lib', params[:seq_lib][:barcode_key])
       
@@ -46,7 +49,7 @@ class AttachedFilesController < ApplicationController
       redirect_to :controller => params[:obj_klass].underscore.pluralize, :action => :show, :id => params[:obj_id]
       #redirect_to :action => :new, :rec_type => params[:obj_klass].underscore, :obj_id => params[:obj_id]
     else
-      flash.now[:error] = "Error saving attached file: #{@attached_file.basename_with_ext}"
+      flash.now[:error] = "Validation error - unable to save attached file"
       @obj = source_rec(params[:obj_klass].underscore, nil, params[:obj_id])
       render :action => :new
     end  
@@ -84,6 +87,7 @@ protected
   def get_obj_with_id(rec_type, obj_id)
     obj = case rec_type
           when 'histology' then Histology.getwith_attach(obj_id)
+          when 'processed_sample' then ProcessedSample.getwith_attach(obj_id)
           when 'seq_lib'   then SeqLib.getwith_attach(obj_id)
           when 'flow_cell' then FlowCell.getwith_attach(obj_id)
           else nil

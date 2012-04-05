@@ -1,18 +1,21 @@
+<% add_file_button ||= 'yes'%>
 <fieldset class="info">
-<legend><%= obj.class %>&nbsp;Attached Files</legend>
+<legend><%= name_of_klass(obj) %>&nbsp;Attached Files</legend>
   <table class="info">
   <% if obj.attached_files && !obj.attached_files.empty? %>
 	<% obj.attached_files.each do |att_file| %>
 	  <tr>
-        <td><%=link_to att_file.basename_with_ext, att_file %></td>
+        <td style="min-width:95px"><%=link_to att_file.basename_with_ext, att_file %></td>
 		<td><%=h att_file.notes %></td>
 	    <td class="linkborder"><%=link_to 'Delete', att_file, :confirm => 'Are you sure?', :method => :delete %></td>
 	  </tr>
       <% end %>
   <% else %>
-      <tr><td>None</td></tr>
+      <tr><td style="width:95px">None</td></tr>
   <% end %>
-      <tr><td class="linkborder"><%= link_to_function "New Attachment", div_toggle(:newfile) %></td></tr>	
+  <% if add_file_button == 'yes' %>
+      <tr><td class="linkborder"><div id="add_new"><%= link_to_function "New Attachment", div_toggle(:newfile, :add_new) %></div></td></tr>
+  <% end %>	
   </table>
 </fieldset>
 <%=break_clear %>

@@ -21,6 +21,10 @@ class SampleStorageContainer < ActiveRecord::Base
   belongs_to :freezer_location
   belongs_to :stored_sample, :polymorphic => true
   
+  def before_create
+    self.sample_name_or_barcode = self.stored_sample.barcode_key
+  end
+  
   def container_desc
     [container_type, container_name].join(': ')
   end
@@ -31,5 +35,9 @@ class SampleStorageContainer < ActiveRecord::Base
   
   def room_and_freezer
     (freezer_location ? freezer_location.room_and_freezer : '')
+  end
+  
+  def self.populate_dropdown
+    self.find(:all, :select => 'DISTINCT container_type', :order => 'container_type')
   end
 end

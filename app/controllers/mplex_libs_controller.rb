@@ -7,7 +7,8 @@ class MplexLibsController < ApplicationController
   def setup_params
    @from_date = (Date.today - 3.months).beginning_of_month
    @to_date   =  Date.today
-   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil))
+   @seq_lib   = SeqLib.new(:owner => (current_user.researcher ? current_user.researcher.researcher_name : nil),
+                           :runtype_adapter => 'M_PE')
   end
   
   def new
@@ -126,7 +127,10 @@ class MplexLibsController < ApplicationController
     params[:seq_lib].merge!(:alignment_ref => alignment_key)
      
     if @seq_lib.update_attributes(params[:seq_lib])
-      FlowLane.upd_lib_lanes(@seq_lib)
+      SeqLib.upd_mplex_fields(@seq_lib)
+      if @seq_lib.on_flow_lane?
+        FlowLane.upd_lib_lanes(@seq_lib)
+      end
       flash[:notice] = 'Multiplex library was successfully updated'
       redirect_to(@seq_lib) 
       
@@ -147,8 +151,6 @@ class MplexLibsController < ApplicationController
   
 protected
   def dropdowns
-    @adapters     = Category.populate_dropdown_for_category('run_type')
-    @adapters.reject! {|adapter| adapter.c_value[0,1] == 'S'}
     @enzymes      = Category.populate_dropdown_for_category('enzyme')
     @align_refs   = AlignmentRef.populate_dropdown
     @projects     = Category.populate_dropdown_for_category('project')
@@ -159,7 +161,7 @@ protected
   
   def setup_dropdowns
     @owners    =  Researcher.populate_dropdown('incl_inactive')
-    @adapters  = Category.populate_dropdown_for_category('run_type')
+    @mplex_adapters  = IndexTag.mplex_adapters
   end
   
   def define_lib_conditions(params)
