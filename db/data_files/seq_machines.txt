@@ -1,0 +1,4 @@
+GA1	GAIIx
+HS1	HiSeq
+MS1	MiSeq
+Run_Number

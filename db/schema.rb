@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string    "sequencing_kit",  :limit => 10
     t.string    "flowcell_status", :limit => 2
     t.string    "sequencing_key",  :limit => 50
+    t.string    "run_description", :limit => 80
     t.date      "sequencing_date"
     t.integer   "seq_machine_id"
     t.integer   "seq_run_nr",      :limit => 2
@@ -319,7 +320,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string    "from_pools",          :limit => 100
     t.string    "from_plates",         :limit => 100
     t.integer   "total_oligos",                                                     :default => 0,  :null => false
-    t.integer   "cherrypick_oligos",                                                :default => 0,  :null => false
     t.string    "enzyme_code",         :limit => 50
     t.decimal   "source_conc_um",                     :precision => 8, :scale => 3
     t.decimal   "pool_volume",                        :precision => 8, :scale => 3
@@ -462,7 +462,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer   "sample_characteristic_id"
     t.integer   "source_sample_id"
     t.string    "source_barcode_key",       :limit => 20
-    t.string    "barcode_key",              :limit => 20,                                :default => "",  :null => false
+    t.string    "barcode_key",              :limit => 20,                                  :default => "",  :null => false
     t.string    "alt_identifier",           :limit => 20
     t.date      "sample_date"
     t.string    "sample_type",              :limit => 50
@@ -472,17 +472,17 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string    "tumor_normal",             :limit => 25
     t.string    "sample_container",         :limit => 20
     t.string    "vial_type",                :limit => 30
-    t.decimal   "amount_initial",                         :precision => 10, :scale => 3, :default => 0.0
-    t.decimal   "amount_rem",                             :precision => 10, :scale => 3, :default => 0.0
+    t.decimal   "amount_initial",                           :precision => 10, :scale => 3, :default => 0.0
+    t.decimal   "amount_rem",                               :precision => 10, :scale => 3, :default => 0.0
     t.string    "amount_uom",               :limit => 20
     t.string    "sample_remaining",         :limit => 2
     t.integer   "storage_location_id"
     t.string    "storage_shelf",            :limit => 10
     t.string    "storage_boxbin",           :limit => 25
-    t.string    "comments"
+    t.string    "comments",                 :limit => 1024
     t.integer   "updated_by",               :limit => 2
     t.datetime  "created_at"
-    t.timestamp "updated_at",                                                                             :null => false
+    t.timestamp "updated_at",                                                                               :null => false
   end
 
   add_index "samples", ["patient_id"], :name => "smp_patient_fk"

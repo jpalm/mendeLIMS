@@ -1,13 +1,13 @@
 # == Schema Information
 #
-# Table name: sample_containers
+# Table name: sample_storage_containers
 #
 #  id                     :integer(4)      not null, primary key
 #  stored_sample_id       :integer(4)
 #  stored_sample_type     :string(50)
 #  sample_name_or_barcode :string(25)      default(""), not null
 #  container_type         :string(10)
-#  container_name         :string(20)      default(""), not null
+#  container_name         :string(25)      default(""), not null
 #  position_in_container  :string(15)
 #  freezer_location_id    :integer(4)
 #  storage_container_id   :integer(4)

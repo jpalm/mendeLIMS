@@ -11,6 +11,7 @@
 #  sequencing_kit  :string(10)
 #  flowcell_status :string(2)
 #  sequencing_key  :string(50)
+#  run_description :string(80)
 #  sequencing_date :date
 #  seq_machine_id  :integer(4)
 #  seq_run_nr      :integer(2)

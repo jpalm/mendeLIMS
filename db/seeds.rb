@@ -78,11 +78,17 @@ AlignmentRef.connection.execute("TRUNCATE TABLE alignment_refs")
 SeqMachine.connection.execute("TRUNCATE TABLE seq_machines")
 
 # Populate sequencing machines
-%w{Run_Number SG1 SG2}.each do |machine|
-  SeqMachine.create!(:machine_name => machine,
-                     :machine_type => (machine == 'Run_Number' ? nil : 'GAIIx'),
-                     :last_seq_num => (machine == 'Run_Number' ? 0 : nil))
+file_path = File.join(data_file_path, 'seq_machines.txt')
+if FileTest.file?(file_path)
+  File.open(file_path, 'r') do |file|
+    file.read.each_line do |seq_machine|
+      machine_name, machine_type = seq_machine.chomp.split("\t")
+      SeqMachine.create!(:machine_name => machine_name, 
+                         :machine_type => machine_type,
+                         :last_seq_num => 0)
+    end
   end
+end
   
 # Populate alignment reference(s)
 AlignmentRef.create!(:alignment_key => 'HWG_37.1',
@@ -110,7 +116,7 @@ StorageDevice.create!(:device_name => 'Disk1',
 ##########################################################################################
 ConsentProtocol.connection.execute("TRUNCATE TABLE consent_protocols")
 
-%w{['NA', 'Anonymous Sample'], ['1123', 'Consent Protocol']}.each do |consent|
+[['NA', 'Anonymous Sample'], ['1123', 'Consent Protocol']].each do |consent|
   ConsentProtocol.create!(:consent_nr   => consent[0],
                           :consent_name => consent[1],
                           :consent_abbrev => consent[1])
@@ -156,7 +162,7 @@ end
 ##########################################################################################
 Pool.connection.execute("TRUNCATE TABLE pools")
 
-%w{['Test-01', 'XX0001', 'Test pool or project'], ['Test-02', 'XX0002', 'Another pool or project']}.each do |pool|
+[['Test-01', 'XX0001', 'Test pool or project'], ['Test-02', 'XX0002', 'Another pool or project']].each do |pool|
   Pool.create!(:pool_name   => pool[0],
                :tube_label  => pool[1],
                :pool_description => pool[2])

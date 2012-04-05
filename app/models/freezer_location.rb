@@ -20,10 +20,13 @@ class FreezerLocation < ActiveRecord::Base
   #validates_uniqueness_of :location_string
   
   def room_and_freezer
-    name_array      = owner_name.split(' ')
-    last_nm         = (owner_name.nil? ? ' ' : name_array[-1])
-    last_nm_wparens = (last_nm.blank? ? ' ' : ['(', last_nm, ')'].join)
-    return [[room_nr, freezer_nr].join('/'), last_nm_wparens].join
+    rm_frz = [room_nr, freezer_nr].join('/')
+    if owner_name.blank?
+      return rm_frz
+    else
+      last_nm = owner_name.split(' ')[-1]
+      return [rm_frz, '(', last_nm, ')'].join
+    end
   end
   
   def self.list_all_by_room

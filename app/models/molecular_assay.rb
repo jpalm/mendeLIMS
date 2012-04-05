@@ -40,7 +40,7 @@ class MolecularAssay < ActiveRecord::Base
   
   def validate
     if self.processed_sample
-      errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source > self.processed_sample.final_vol 
+      errors.add(:volume, "- insufficent source volume/concentration") if self.vol_from_source && (self.vol_from_source > self.processed_sample.final_vol)
     end
   end
    
